@@ -1,0 +1,1179 @@
+<!-- https://bootsnipp.com/snippets/oPgeG -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Assesment estimator</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<style>
+  button { margin-top: 5px;
+}
+  .checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
+}
+.radio .cr {
+    border-radius: 50%;
+}
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+</style>
+
+<script>
+
+function colorDiv(p1, p2) {
+    var div = document.getElementById(p1);
+
+    switch (p2) {
+        case "1" :
+            div.style.backgroundColor = '#ca863f';
+            break;
+        case "2" :
+            div.style.backgroundColor = '#d4b439';
+
+            break;
+        case "3" :
+            div.style.backgroundColor = '#39d4ce';
+
+
+            break;
+        case "4" :
+            div.style.backgroundColor = 'rgb(57, 212, 162)';
+
+            break;
+        case "5" :
+
+            div.style.backgroundColor = '#57cc57'
+            break;
+    }
+}
+
+  function checkAll(p1, p2, divid) {
+    var checks = document.querySelectorAll('#' + divid + ' input[type="checkbox"]');
+    for(var i =0; i< checks.length;i++){
+        var check = checks[i];
+        if(!check.disabled){
+            check.checked = true;
+        }
+    }
+}
+  function calculate(p1, p2, p3) {
+    <!-- var inputs = document.getElementById(p1).elements; -->
+    var inputs = document.querySelectorAll('#' + p1 + ' input[type="checkbox"]');
+    var count  = 0;
+    var total  = 0;
+
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].type == 'checkbox' && inputs[i].checked) {
+            count++;
+        }
+        if (inputs[i].type == 'checkbox') {
+            total++;
+        }
+    }
+    if (p3 === 'percent') {
+      document.getElementById(p2).innerHTML = " "+(count/total*100).toFixed(2) + "%" ; 
+    } 
+    if (p3 === 'grade') {
+      var grade = (count/total*5).toFixed(0)
+      document.getElementById(p2).innerHTML = " "+ grade + " Grade";
+
+      num = parseInt(p2.replace(/[^0-9\.]/g, ''), 10);
+
+      colorDiv('display'+num, grade);
+
+    }
+}
+
+</script>
+
+<body>
+
+  <div class="container">
+    <h1>Assesment checker for Data-centric development project</h1>
+    <hr />
+    <p>This is an unofficial tool that can help you to calculate and estimate your the grade.
+      And help you check how many requirements you met <br />Just put <code><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span></code> right after your checkbox or radio.</p>
+    <p>Please keep in mind that this is only a simple estimation and many other factors can infulance final grade </p>
+    Estimated score for project:<h3 id="score"> </h3>
+
+    <h2>Code Quality</h2>
+    <hr />
+
+    <div id="all_criteria" onclick="calculate('all_criteria', 'score', 'percent');">
+
+      <!-- ONE SET OF QUESTIONS -->
+      <!-- each data-target [unique]  Questions need to be put in here     Display grade [unique]      -->
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse1">Appropriate use of Python <span id="display1"> </span> </button>
+      <!-- data-target  -->
+      <!--  data-target   Display grade   type of -->
+      <div class="collapse" id="collapse1" onclick="calculate('collapse1', 'display1', 'grade');">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="1">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your project includes sufficient custom Python logic to to demonstrate your proficiency in the language
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="2">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            It includes functions with compound statements such as if conditions and/or loops.
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="3">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your Python code is consistent in style and preferably conforms to the PEP8 style guide
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Check your Python indentation is valid.
+          </label>
+        </div>
+      </div>
+
+      <!-- ONE SET OF QUESTIONS -->
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse2">Appropriate use of template language<span id="display2"> </span> </button>
+      <!-- data-target  -->
+      <!--  data-target   Display grade   type of -->
+      <div class="collapse" id="collapse2" onclick="calculate('collapse2', 'display2', 'grade');">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="1">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your template code is valid and well organised.
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="2">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your template code demonstrates solid understanding of template tags and template inheritance.
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="3">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            There is no unneeded complexity
+          </label>
+        </div>
+      </div>
+
+      <h2>Software Development practises</h2>
+      <hr>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse3">Data Store Integration <span id="display3"> </span> </button>
+      <!-- data-target  -->
+      <!--  data-target   Display grade   type of -->
+      <div class="collapse" id="collapse3" onclick="calculate('collapse3', 'display3', 'grade');">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="1">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The project makes good use of a data store (database, or data files such as json) to maintain data in a consistent and well-organized manner.
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="2">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The contents of the data store are persisted between requests.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="3">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            As Heroku does not support media file upload, have you stored them on an external service?
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="3">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Regular users are not able to access the data store directly without going through your code.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="3">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The data store configuration is kept in a single location and can be changed easily.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse4"> Deployment Implementation<span id="display4"> </span> </button>
+      <div class="collapse" id="collapse4" onclick="calculate('collapse4', 'display4', 'grade');">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            There are well-kept Procfile, requirements.txt file, settings files, etc., including separate versions/branches of these if relevant.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All secret keys are hidden in environment variables or in files that are in .gitignore.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Debug mode (e.g. in Flask or Django) is disabled for the deployed version
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse5">Deployment Write-up<span id="display5"> </span> </button>
+      <div class="collapse" id="collapse5" onclick="calculate('collapse5', 'display5', 'grade');">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your README describes the deployment procedure including settings files, environment variables, dependencies and any other differences between the dev and live versions
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            If you have created an automated script to help deploy the project, you should include it (or link to it) in your write-up.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse6">Appropriate use of JavaScript<span id="display6"> </span> </button>
+      <div class="collapse" id="collapse6" onclick="calculate('collapse6', 'display6', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your project includes sufficient custom JavaScript logic to demonstrate your proficiency in the language.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            In particular, it includes functions with compound statements such as if conditions and/or loops.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your JavaScript code passes through a linter (we recommend jshint.com) with no major issues.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Check that there are no errors in the console during all interaction with the site.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The code is indented in a consistent manner to ease readability, and there is consistent use of empty lines.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All non-trivial JavaScript code should be kept in an external file(s) linked to at the bottom of the body element (or bottom of the head element if needs loaded before the body HTML).
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse7">Appropriate use of JavaScript API<span id="display7"> </span> </button>
+      <div class="collapse" id="collapse7" onclick="calculate('collapse7', 'display7', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your project includes JavaScript code that uses external and/or internal APIs (e.g. TMDb, Google Maps, Canvas, dc.js, etc.) in an effective manner.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            There is a clear separation between input logic, processing, and presentation logic.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            There are no bugs or unneeded complexity
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The code is robust against race-conditions - the code never relies on the duration of specific processes
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The API-related code demonstrates a solid understanding of asynchronicity and callbacks/promises.
+          </label>
+        </div>
+      </div>
+
+      <h2> Usability and Real-World application</h2>
+      <hr />
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse8">Project Purpose<span id="display8"> </span> </button>
+      <div class="collapse" id="collapse8" onclick="calculate('collapse8', 'display8', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The project has a clear, well-defined purpose addressing the needs of a particular target audience (or multiple related audiences).
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The project’s purpose is evident to a new user without having to look in the documentation.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The project’s documentation provides a clear rationale for the development of this project.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse9">UX design<span id="display9"> </span> </button>
+      <div class="collapse" id="collapse9" onclick="calculate('collapse9', 'display9', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The project's documentation describes the UX design work undertaken for this project and the reasoning behind it.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Any wireframes, mockups, diagrams etc... you created as part of the design process are included in the project
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse10">Suitability for purpose<span id="display10"> </span> </button>
+      <div class="collapse" id="collapse10" onclick="calculate('collapse10', 'display10', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The site's design, as implemented, provides a good solution to the users' demands and expectations.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            A regular user would not immediately think "there's a much better way to do this" about any part of the project.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse11"> Navigation<span id="display11"> </span> </button>
+      <div class="collapse" id="collapse11" onclick="calculate('collapse11', 'display11', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All resources on the site are easy to find, allowing users to navigate the layout of the site intuitively.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The site’s navigation is consistent and reasoned.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            There is never a need to use the Back button to move through the site.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            For any external links, the target=”_blank” attribute is used.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            There are no broken links.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse12">Ease of Use<span id="display12"> </span> </button>
+      <div class="collapse" id="collapse12" onclick="calculate('collapse12', 'display12', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            It is easy and straightforward for a new user to figure out how to use your site without having to read any documentation
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Have you had others (for example, family members, friends and/or other students) try out your site and they all said so?
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The site is intuitive to use and never confuses the user or surprise them in a negative way.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The user has full control of their interaction with the project and at no point needs to “fight” it.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The site avoids aggressive automatic pop-ups and autoplay of audio; instead of allowing the user to initiate such actions.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All input elements are clearly labelled, and provide placeholders and default values whenever relevant.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The project follows common and consistent UI/UX conventions - there are plenty of online resources you can take inspiration from, such as GoodUI.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse13">Information Architecture<span id="display13"> </span> </button>
+      <div class="collapse" id="collapse13" onclick="calculate('collapse13', 'display13', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All information displayed on the site is presented in an organised fashion with each piece of information being easy to find and none feeling out of place.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Headers are used to convey structure - each section has a header that’s easy to see and clear to understand.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The written language used on your sites is straightforward for the user to follow.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Whenever relevant, the site provides interactivity to make the information easier to consume.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse14">Defensive Design<span id="display14"> </span> </button>
+      <div class="collapse" id="collapse14" onclick="calculate('collapse14', 'display14', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            A customer is not be able to break the site by clicking buttons out of the expected order or by providing any unexpected inputs.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All forms intelligently handle empty or invalid input fields.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Navigating between pages via the back/forward buttons can never break the site.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            This includes unexpected actions such as navigating back to the login page after already being logged in.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            User actions should not cause internal errors in the console
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Clear feedback to the user is given for any action disallowed by the developer.
+          </label>
+        </div>
+      </div>
+
+      <h2> Layout and Visual Impact</h2>
+      <hr />
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse16">Responsive Design<span id="display16"> </span> </button>
+      <div class="collapse" id="collapse16" onclick="calculate('collapse16', 'display16', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All page elements look well on screens as small as 360 pixels wide and as big as 3840 pixels wide (4K).
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The site uses Bootstrap grid sizes or CSS3 media queries to ensure the layout changes appropriately and reflows when the screen is resized.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse17">Image Presentation<span id="display17"> </span> </button>
+      <div class="collapse" id="collapse17" onclick="calculate('collapse17', 'display17', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Graphics are consistent in style and colour.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The background never distracts from the foreground information.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All kinds of multimedia content used in the project work well on the different popular browsers.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Whenever needed, multiple alternative file types are used.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Images always maintain their original aspect ratio when the screen is resized (crop don’t stretch).
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All images are of sufficient resolution to not appear pixelated.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Image files are not bigger than is needed - full-screen images are under 3MB, while smaller images are <500kB. </label> </div> <div class="checkbox">
+              <label>
+                <input type="checkbox" value="" id="4">
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                If any larger files are being loaded, there is a progress indicator.
+              </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse18">Color Scheme and Typography<span id="display18"> </span> </button>
+      <div class="collapse" id="collapse18" onclick="calculate('collapse18', 'display18', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The color scheme used on the site consists of a palette of colors that work well together.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The typefaces used complement one another.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All text is legible; particular attention to legibility is maintained when text formatting effects are in use.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Text is never obscured by images or colors.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse19"> Appropriate use of HTML5<span id="display19"> </span> </button>
+      <div class="collapse" id="collapse19" onclick="calculate('collapse19', 'display19', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your HTML passes through the official validator with no issues.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Semantic HTML5 elements are used whenever this makes sense.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All non-text elements have a text equivalent for the visually impaired (e.g. alt attributes in img elements).
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Code is indented in a consistent manner to ease readability.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse20"> Appropriate use of CSS3<span id="display20"> </span> </button>
+      <div class="collapse" id="collapse20" onclick="calculate('collapse20', 'display20', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your project includes sufficient custom written CSS code to demonstrate your proficiency in the language.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your CSS passes through the official (Jigsaw) validator with no issues.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your CSS is split/indented into well-defined and commented sections.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            CSS code is kept in external file(s) that are linked to in the HTML file’s head element.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            CSS classes are used effectively and there is no unnecessary duplication of properties.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Code is indented in a consistent manner to ease readability.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse21"> Appropriate use of code<span id="display21"> </span> </button>
+      <div class="collapse" id="collapse21" onclick="calculate('collapse21', 'display21', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            There is no unneeded complexity, as well as no commented-out code.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Code is indented in a consistent manner to ease readability.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Functions are used for reuse of identical/similar code sections to encapsulate implementation detail and promote abstraction.
+          </label>
+        </div>
+      </div>
+
+      <h2> Software Development Practices</h2>
+      <hr />
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse22">Directory Structure and File Naming<span id="display22"> </span> </button>
+      <div class="collapse" id="collapse22" onclick="calculate('collapse22', 'display22', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your project’s files are named clearly and consistently, and located in appropriately named directories.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Whenever relevant, files are grouped in directories by file type (e.g., a static directory will contain all static files and may be organized into sub-directories such as CSS, images, etc.)
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            There is a clear separation between your files and any external files (for example, library files are all inside a directory named 'libraries').
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            File names are descriptive and consistent. For cross-platform compatibility, file and directory names shouldn’t have spaces in them and should be lower-case only.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse23"> Appropriate use of code<span id="display23"> </span> </button>
+      <div class="collapse" id="collapse23" onclick="calculate('collapse23', 'display23', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your code is managed in git, with a separate well-named commit for each feature/fix.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            You avoid very large commits, because this makes it harder to understand your development process and may lead the assessor to suspect plagiarism.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse24"> Testing implementation<span id="display24"> </span> </button>
+      <div class="collapse" id="collapse24" onclick="calculate('collapse24', 'display24', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            You have conducted enough testing to convince the assessor that you legitimately believe that the site works well.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            You conducted manual testing of your HTML/CSS for usability and responsiveness.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            If using JavaScript or Python, you have created automated unit tests.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            If using automated tests in JavaScript or Python are they effective and meaningful? Ensure no useless tests.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            If you have used test driven development (TDD) for JavaScript or Python ensure this is demonstrated in your commit log.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse25"> Testing write-up<span id="display25"> </span> </button>
+      <div class="collapse" id="collapse25" onclick="calculate('collapse25', 'display25', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your testing (both manual and automated) is well documented either in the README or a separate file.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your write-up discusses any interesting bugs found and their fixes.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your write-up mentions and explains any bugs that were left unfixed.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse26"> Readme file<span id="display26"> </span> </button>
+      <div class="collapse" id="collapse26" onclick="calculate('collapse26', 'display26', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The project includes a readme file named README.md which is intended as an introduction for other developers who would like to use and contribute to this project. Note that submitting a project without a readme is an immediate fail.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The readme file describes the project's components, the technologies used and any other important details.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The readme is well-structured and easy to follow.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your readme file is written in markdown and uses markdown formatting consistently and effectively.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The readme describes the project’s purpose, components, technologies, and all other important details.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse27"> Comments<span id="display27"> </span> </button>
+      <div class="collapse" id="collapse27" onclick="calculate('collapse27', 'display27', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            All code files include clear and useful comments, wherever they are relevant.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Consider your intent, the reasoning and any trade-offs behind your code.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your comments explain the “why” rather than the “what”.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse28"> Deployment implementation<span id="display28"> </span> </button>
+      <div class="collapse" id="collapse28" onclick="calculate('collapse28', 'display28', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Your site is deployed online on Github Pages, Heroku or any other system with full functionality.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The deployed version is identical to the development version except as explicitly mentioned in the deployment section in the documentation
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse29"> Deployment write-up<span id="display29"> </span> </button>
+      <div class="collapse" id="collapse29" onclick="calculate('collapse29', 'display29', 'grade');">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            The deployment procedure is fully documented in a section in the readme file.
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="" id="4">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Any differences between the development code and deployed code are fully explained.
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <footer class="page-footer font-smal mt-4">
+        <div class="container text-center text-md-left">
+          <div class="row">
+            <br>
+            <br>
+              <h5 class="text-uppercase text-center">Assesment estimator</h5>
+              <p>Check your project before submission and estimate what your potential grade can be. Be honest with yourself and check 
+              checkboxes as close as reality is. This tool comes without any guarantee and final grade can be far different from what you can 
+              get on your final assesment, but this tool can give you a good feedback what to improve in your project before your final submission. </p>
+            </div>
+            <hr class="clearfix w-100 d-md-none pb-3">
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright text-center py-3">© 2019 Assesment estimator
+          <a href="https://github.com/Migacz85">by Marcin Mrugacz</a>
+        </div>
+          <br>
+      </footer>
+      <!-- Footer -->
+</body>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</html>
