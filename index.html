@@ -1,13 +1,10 @@
-<!-- https://bootsnipp.com/snippets/oPgeG -->
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Assesment estimator</title>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <style>
@@ -67,8 +64,7 @@
 </style>
 
 <script>
-
-function colorDiv(p1, p2) {
+  function colorDiv(p1, p2) {
     var div = document.getElementById(p1);
 
     switch (p2) {
@@ -131,17 +127,15 @@ function colorDiv(p1, p2) {
 
     }
 }
-
 </script>
 
 <body>
-
   <div class="container">
-    <h1>Assesment checker for Data-centric development project</h1>
+    <h1>Assesment estimation for Data-centric development project</h1>
     <hr />
     <p>This is an unofficial tool that can help you to calculate and estimate your the grade.
       And help you check how many requirements you met <br />Just put <code><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span></code> right after your checkbox or radio.</p>
-    <p>Please keep in mind that this is only a simple estimation and many other factors can infulance final grade </p>
+    <p>Please keep in mind that this is simplified estimation on true/false statements and many other factors can infulance final grade that are not specified in statements. </p>
     Estimated score for project:<h3 id="score"> </h3>
 
     <h2>Code Quality</h2>
@@ -150,11 +144,10 @@ function colorDiv(p1, p2) {
     <div id="all_criteria" onclick="calculate('all_criteria', 'score', 'percent');">
 
       <!-- ONE SET OF QUESTIONS -->
-      <!-- each data-target [unique]  Questions need to be put in here     Display grade [unique]      -->
-
+                                                                                <!-- each data-target [unique]  Questions need to be put in here     Display grade [unique]      -->
       <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse1">Appropriate use of Python <span id="display1"> </span> </button>
-      <!-- data-target  -->
-      <!--  data-target   Display grade   type of -->
+          
+                            <!-- data-target  -->      <!--  data-target   Display grade   type of -->
       <div class="collapse" id="collapse1" onclick="calculate('collapse1', 'display1', 'grade');">
         <div class="checkbox">
           <label>
@@ -189,8 +182,6 @@ function colorDiv(p1, p2) {
       <!-- ONE SET OF QUESTIONS -->
 
       <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse2">Appropriate use of template language<span id="display2"> </span> </button>
-      <!-- data-target  -->
-      <!--  data-target   Display grade   type of -->
       <div class="collapse" id="collapse2" onclick="calculate('collapse2', 'display2', 'grade');">
         <div class="checkbox">
           <label>
@@ -219,8 +210,6 @@ function colorDiv(p1, p2) {
       <hr>
 
       <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse3">Data Store Integration <span id="display3"> </span> </button>
-      <!-- data-target  -->
-      <!--  data-target   Display grade   type of -->
       <div class="collapse" id="collapse3" onclick="calculate('collapse3', 'display3', 'grade');">
         <div class="checkbox">
           <label>
@@ -1150,27 +1139,28 @@ function colorDiv(p1, p2) {
 
       </div>
 
-      <!-- Footer -->
-      <footer class="page-footer font-smal mt-4">
+  <!-- Footer -->
+  <footer class="page-footer font-smal mt-4">
         <div class="container text-center text-md-left">
           <div class="row">
             <br>
             <br>
-              <h5 class="text-uppercase text-center">Assesment estimator</h5>
-              <p>Check your project before submission and estimate what your potential grade can be. Be honest with yourself and check 
-              checkboxes as close as reality is. This tool comes without any guarantee and final grade can be far different from what you can 
+            <h5 class="text-uppercase text-center">Assesment estimator</h5>
+            <p>Check your project before submission and estimate what your potential grade can be. Be honest with yourself and check
+              checkboxes as close as reality is. This tool comes without any guarantee and final grade can be far different from what you can
               get on your final assesment, but this tool can give you a good feedback what to improve in your project before your final submission. </p>
-            </div>
-            <hr class="clearfix w-100 d-md-none pb-3">
-            </div>
           </div>
+          <hr class="clearfix w-100 d-md-none pb-3">
         </div>
-        <div class="footer-copyright text-center py-3">© 2019 Assesment estimator
-          <a href="https://github.com/Migacz85">by Marcin Mrugacz</a>
-        </div>
-          <br>
-      </footer>
-      <!-- Footer -->
+
+  <div class="footer-copyright text-center py-3">© 2019 Assesment estimator
+    <a href="https://github.com/Migacz85">by Marcin Mrugacz</a>
+    <br>
+    <a href="https://github.com/Migacz85/assessment-estimator/">Check this project repository</a>
+  </div>
+  <br>
+  </footer>
+  <!-- Footer -->
 </body>
 
 <!-- Latest compiled and minified JavaScript -->
