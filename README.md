@@ -6,6 +6,7 @@ tool can give you a good responsive feedback what to improve in your
 project before your final submission. You can [check working project](https://migacz85.github.io/assessment-estimator/) here,
 any contributions are welcome.
 
+![Image](https://migacz85.github.io/assessment-estimator/assessor-ux.png)
 
 ### User Stories
 
